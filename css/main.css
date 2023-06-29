@@ -25,6 +25,11 @@ main {
   gap: 5px;
 }
 
+.time {
+  font-size: 25px;
+  margin: 10px 0;
+}
+
 .board-row {
   display: flex;
   align-items: center;
@@ -32,13 +37,15 @@ main {
   gap: 5px;
 }
 
-.board-block {
+.board-column {
   display: flex;
   align-items: center;
   justify-content: center;
   border: 2px solid #d3d6da;
   width: 60px;
   height: 60px;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 footer {
