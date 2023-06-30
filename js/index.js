@@ -1,14 +1,16 @@
 const answer = "APPLE";
 let attempts = 0;
 let index = 0;
+let date;
 let timer;
+const keyboards = document.querySelectorAll(".keyboard-column");
 
 function appStart() {
   const displayGameover = () => {
     const div = document.createElement("div");
     div.innerText = "게임이 종료되었습니다.";
     div.style =
-      "display: flex; justify-content: center; align-items: center; position: absolute; top: 40vh; left: 33.5vw; padding: 20px 70px; color:#fff; background: rgba(0, 0, 0, .8);";
+      "display: flex; justify-content: center; align-items: center; position: absolute; top: 40vh; left: 50%; margin-left: -142px; padding: 20px 70px; color:#fff; background: rgba(0, 0, 0, .8);";
     document.body.appendChild(div);
   };
 
@@ -33,11 +35,21 @@ function appStart() {
       );
       const letter = block.innerText; // 입력한 글자;
       const word = answer[i]; // 정답철자
+      const keboardTxt = document.querySelector(
+        `.keyboard-column[data-key="${letter}"]`
+      ); // 키보드 글자;
+
       if (letter === word) {
         cnt += 1;
         block.style.background = "#6AAA64";
-      } else if (word.includes(letter)) block.style.background = "#C9B458";
-      else block.style.background = "#d3d6da";
+        keboardTxt.style.background = "#6AAA64";
+      } else if (word.includes(letter)) {
+        block.style.background = "#C9B458";
+        keboardTxt.style.background = "#C9B458";
+      } else {
+        block.style.background = "#d3d6da";
+        keboardTxt.style.background = "#d3d6da";
+      }
       block.style.color = "white";
     }
     if (cnt === 5) gameover();
@@ -71,6 +83,35 @@ function appStart() {
     }
   };
 
+  const handleKeyclick = (e) => {
+    const key = e.currentTarget.dataset.key;
+    const thisBlock = document.querySelector(
+      `.board-column[data-index='${attempts}${index}']`
+    );
+
+    if (key === "BACK") handleBackspace();
+    else if (index === 5) {
+      if (key === "ENTER") handleEnterKey();
+      else return;
+    } else if (key != "BACK" && key != "ENTER") {
+      thisBlock.innerText = key;
+      index++;
+    }
+  };
+
+  const todayDate = () => {
+    const today = new Date();
+    const setDay = () => {
+      const year = today.getFullYear().toString(); //년
+      const month = today.getMonth() + 1;
+      const month2 = month.toString().padStart(2, "0"); //월
+      const day = today.getDate().toString(); //일
+      const dateDiv = document.querySelector(".date");
+      dateDiv.innerText = `${year} . ${month2} . ${day}`;
+    };
+    date = setInterval(setDay, 1000);
+  };
+
   const startTimer = () => {
     const startTime = new Date(); // 시작시간
     const setTime = () => {
@@ -84,9 +125,14 @@ function appStart() {
     //주기성
     timer = setInterval(setTime, 1000);
   };
+
+  todayDate();
   startTimer();
 
   window.addEventListener("keydown", handleKeydown);
+  keyboards.forEach((i) => {
+    i.addEventListener("click", handleKeyclick);
+  });
 }
 
 appStart();

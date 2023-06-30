@@ -25,9 +25,30 @@ main {
   gap: 5px;
 }
 
+.date-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 340px;
+  margin-bottom: 10px;
+}
+
+.date-wrap p {
+  margin: 0;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.date-txt {
+  padding-right: 10px;
+}
+
 .time {
   font-size: 25px;
-  margin: 10px 0;
 }
 
 .board-row {
@@ -64,7 +85,7 @@ footer {
   gap: 5px;
 }
 
-.keyboard-row button {
+.keyboard-row .keyboard-column {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,11 +99,11 @@ footer {
   font-size: 20px;
 }
 
-.keyboard-row button.special {
+.keyboard-row .keyboard-column.special {
   width: 58px;
   font-size: 12px;
 }
 
-.keyboard-row button.special img {
+.keyboard-row .keyboard-column.special img {
   width: 30px;
 }
