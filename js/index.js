@@ -52,8 +52,14 @@ function appStart() {
       }
       block.style.color = "white";
     }
-    if (cnt === 5) gameover();
-    else nextLine();
+
+    if (cnt === 5) {
+      document.querySelector(`.row-${attempts}`).classList.add("win");
+      gameover();
+    } else {
+      document.querySelector(`.row-${attempts}`).classList.add("invalid");
+      nextLine();
+    }
   };
 
   const handleBackspace = () => {
@@ -72,6 +78,9 @@ function appStart() {
     const thisBlock = document.querySelector(
       `.board-column[data-index='${attempts}${index}']`
     );
+
+    document.querySelector(".board-row").classList.remove("win");
+    document.querySelector(".board-row").classList.remove("invalid");
 
     if (e.key === "Backspace") handleBackspace();
     else if (index === 5) {
